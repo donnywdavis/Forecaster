@@ -24,6 +24,7 @@
 - (void)getForecastlatitude:(float)latitude longitude:(float)longitude;
 
 - (void)updateLocation:(NSDictionary *)locationDataDictionary weather:(NSDictionary *)weatherDataDictionary;
+- (void)handleRefresh:(UIRefreshControl *)refreshControl;
 
 @end
 
@@ -45,6 +46,8 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
 
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    [self.refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -142,23 +145,30 @@
 - (void)updateLocation:(NSDictionary *)locationDataDictionary weather:(NSDictionary *)weatherDataDictionary {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *locationEntity = [[self.fetchedResultsController fetchRequest] entity];
-    Location *locationObject = [NSEntityDescription insertNewObjectForEntityForName:[locationEntity name] inManagedObjectContext:context];
     
-    NSArray *resultsArray = locationDataDictionary[@"results"];
-    locationObject.latitude = resultsArray[0][@"geometry"][@"location"][@"lat"];
-    locationObject.longitude = resultsArray[0][@"geometry"][@"location"][@"lng"];
-    NSArray *addressComponentsArray = resultsArray[0][@"address_components"];
-    for (NSDictionary *addressInfo in addressComponentsArray) {
-        if ([addressInfo[@"types"][0] isEqualToString:@"postal_code"]) {
-            locationObject.zipCode = [NSNumber numberWithInteger:[addressInfo[@"short_name"] integerValue]];
+    Location *locationObject;
+    if (locationDataDictionary[@"results"]) {
+        locationObject = [NSEntityDescription insertNewObjectForEntityForName:[locationEntity name] inManagedObjectContext:context];
+        NSArray *resultsArray = locationDataDictionary[@"results"];
+        NSArray *addressComponentsArray = resultsArray[0][@"address_components"];
+        locationObject.latitude = resultsArray[0][@"geometry"][@"location"][@"lat"];
+        locationObject.longitude = resultsArray[0][@"geometry"][@"location"][@"lng"];
+        for (NSDictionary *addressInfo in addressComponentsArray) {
+            if ([addressInfo[@"types"][0] isEqualToString:@"postal_code"]) {
+                locationObject.zipCode = [NSNumber numberWithInteger:[addressInfo[@"short_name"] integerValue]];
+            }
+            if ([addressInfo[@"types"][0] isEqualToString:@"locality"]) {
+                locationObject.city = addressInfo[@"long_name"];
+            }
+            if ([addressInfo[@"types"][0] isEqualToString:@"administrative_area_level_1"]) {
+                locationObject.state = addressInfo[@"short_name"];
+            }
         }
-        if ([addressInfo[@"types"][0] isEqualToString:@"locality"]) {
-            locationObject.city = addressInfo[@"long_name"];
-        }
-        if ([addressInfo[@"types"][0] isEqualToString:@"administrative_area_level_1"]) {
-            locationObject.state = addressInfo[@"short_name"];
-        }
+        
+    } else if (locationDataDictionary[@"data"]) {
+        locationObject = locationDataDictionary[@"data"];
     }
+    
     locationObject.temperature = [NSNumber numberWithInteger:[weatherDataDictionary [@"currently"][@"temperature"] integerValue]];
     locationObject.summary = weatherDataDictionary[@"currently"][@"summary"];
     locationObject.apparentTemperature = [NSNumber numberWithInteger:[weatherDataDictionary[@"currently"][@"apparentTemperature"] integerValue]];
@@ -246,6 +256,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 10.0;
+}
+
+- (void)handleRefresh:(UIRefreshControl *)refreshControl {
+    NSArray *locationObjects = [self.fetchedResultsController fetchedObjects];
+    
+    for (Location *location in locationObjects) {
+        NSLog(@"Location: %@ Temperature: %ld", location.city, [location.temperature integerValue]);
+        self.recievedLocationData = [NSDictionary dictionaryWithObject:location forKey:@"data"];
+        [self getForecastlatitude:[location.latitude floatValue] longitude:[location.longitude floatValue]];
+    }
+    
+    [self.tableView reloadData];
+    [refreshControl endRefreshing];
 }
 
 
