@@ -15,6 +15,7 @@
 @interface MasterViewController () <NSURLSessionDelegate, AddLocationDelegate>
 
 @property NSDictionary *recievedLocationData;
+@property NSMutableArray *receivedLocationArray;
 
 // Properties for JSON data received from Google Maps API request
 @property NSMutableData *receivedData;
@@ -37,6 +38,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     self.coordArray = [[NSMutableArray alloc]init];
+    self.recievedLocationData = [[NSDictionary alloc] init];
+    self.receivedLocationArray = [[NSMutableArray alloc] init];
     
     // Hide the separators between cells
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -61,17 +64,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (BOOL)isZipCode:(NSString *)zipCodeString{
-    BOOL rc = NO;
-    
-    NSCharacterSet * set =[NSCharacterSet characterSetWithCharactersInString:@"1234567890"];
-    
-    rc = ([zipCodeString length] ==5)&&([zipCodeString rangeOfCharacterFromSet:set].location != NSNotFound);
-    
-    return rc;
-    
 }
 
 
@@ -165,8 +157,9 @@
             }
         }
         
-    } else if (locationDataDictionary[@"data"]) {
-        locationObject = locationDataDictionary[@"data"];
+    } else if (self.receivedLocationArray) {
+        locationObject = self.receivedLocationArray[0];
+        [self.receivedLocationArray removeObjectAtIndex:0];
     }
     
     locationObject.temperature = [NSNumber numberWithInteger:[weatherDataDictionary [@"currently"][@"temperature"] integerValue]];
@@ -262,12 +255,11 @@
     NSArray *locationObjects = [self.fetchedResultsController fetchedObjects];
     
     for (Location *location in locationObjects) {
-        NSLog(@"Location: %@ Temperature: %ld", location.city, [location.temperature integerValue]);
-        self.recievedLocationData = [NSDictionary dictionaryWithObject:location forKey:@"data"];
+        [self.receivedLocationArray addObject:location];
         [self getForecastlatitude:[location.latitude floatValue] longitude:[location.longitude floatValue]];
     }
     
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
     [refreshControl endRefreshing];
 }
 
@@ -382,9 +374,7 @@
 // Used when we get an error
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
         didCompleteWithError:(nullable NSError *)error {
-    if (!error) {
-        // NSLog(@"Download successful! %@", [self.receivedData description]);
-        
+    if (!error && self.receivedData) {
         // Puts the data received into mutable arrays and dictionaries
         NSDictionary * jsonResponse = [NSJSONSerialization JSONObjectWithData:self.receivedData options:NSJSONReadingMutableContainers error:nil];
         if (jsonResponse[@"results"]) {
