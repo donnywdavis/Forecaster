@@ -51,6 +51,13 @@
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     [self.refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+    
+    // Update weather for current cities listed
+    NSArray *locationObjects = [self.fetchedResultsController fetchedObjects];
+    for (Location *location in locationObjects) {
+        [self.receivedLocationArray addObject:location];
+        [self getForecastlatitude:[location.latitude floatValue] longitude:[location.longitude floatValue]];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -189,6 +196,7 @@
         [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
+        [sender setSelected:NO];
     } else if ([segue.identifier isEqualToString:@"FindCity"]) {
         AddLocationViewController *addLocationVC = (AddLocationViewController *)[segue.destinationViewController topViewController];
         addLocationVC.delegate = self;
