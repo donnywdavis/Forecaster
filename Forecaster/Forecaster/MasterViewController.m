@@ -246,13 +246,12 @@
 - (void)configureCell:(CityTableViewCell *)cell withObject:(Location *)object {
     NSString *temperatureString = [NSString stringWithFormat:@"%ld℉", [object.temperature integerValue]];
     cell.temperature.text = temperatureString;
-    cell.summary.text = object.summary;
     cell.city.text = object.city;
-    
+    cell.image.image = [UIImage imageNamed:object.image];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0;
+    return 75.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

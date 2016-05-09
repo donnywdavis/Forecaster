@@ -122,45 +122,46 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" red="0.7803921568627451" green="0.84705882352941175" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CityCell" rowHeight="76" id="WCw-Qf-5nD" customClass="CityTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CityCell" rowHeight="76" id="WCw-Qf-5nD" customClass="CityTableViewCell">
                                 <rect key="frame" x="0.0" y="86" width="600" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="75"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="75.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orlando" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLU-sZ-chf">
-                                            <rect key="frame" x="8" y="-1" width="72" height="24"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                            <color key="textColor" red="0.63137254901960782" green="0.6470588235294118" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0℉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rO-uh-CDQ">
-                                            <rect key="frame" x="511" y="11" width="48" height="38"/>
+                                            <rect key="frame" x="438" y="19" width="48" height="38"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="32"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o87-uq-bLY">
-                                            <rect key="frame" x="8" y="41" width="95" height="26"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hfl-zv-mFB">
+                                            <rect key="frame" x="494" y="8" width="65" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="65" id="8pC-hy-s6r"/>
+                                                <constraint firstAttribute="height" constant="60" id="gSD-Cp-mEl"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orlando" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLU-sZ-chf">
+                                            <rect key="frame" x="8" y="24" width="79.5" height="28"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="24"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="2rO-uh-CDQ" secondAttribute="trailing" id="8aY-hK-IzS"/>
-                                        <constraint firstItem="YLU-sZ-chf" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leadingMargin" id="C88-Es-d5r"/>
-                                        <constraint firstItem="o87-uq-bLY" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leadingMargin" id="M1M-3e-V5k"/>
-                                        <constraint firstItem="YLU-sZ-chf" firstAttribute="top" secondItem="37f-cq-3Eg" secondAttribute="topMargin" constant="-9" id="POG-C4-QUX"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="o87-uq-bLY" secondAttribute="bottom" id="aAb-gE-po2"/>
-                                        <constraint firstItem="2rO-uh-CDQ" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" constant="-8" id="kK2-tu-P7L"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Hfl-zv-mFB" secondAttribute="trailing" id="E9p-Qq-hp8"/>
+                                        <constraint firstItem="YLU-sZ-chf" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leadingMargin" id="IWl-eW-LyF"/>
+                                        <constraint firstItem="Hfl-zv-mFB" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="SAM-Dl-0uG"/>
+                                        <constraint firstItem="YLU-sZ-chf" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="aKI-jG-iZP"/>
+                                        <constraint firstItem="2rO-uh-CDQ" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="k8I-T3-M2R"/>
+                                        <constraint firstItem="Hfl-zv-mFB" firstAttribute="leading" secondItem="2rO-uh-CDQ" secondAttribute="trailing" constant="8" id="wGp-jM-Nlo"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.25098039215686274" green="0.4823529411764706" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="city" destination="YLU-sZ-chf" id="9Z9-9B-7kn"/>
-                                    <outlet property="summary" destination="o87-uq-bLY" id="pzV-F7-oTe"/>
+                                    <outlet property="image" destination="Hfl-zv-mFB" id="59V-N0-3es"/>
                                     <outlet property="temperature" destination="2rO-uh-CDQ" id="TvE-He-WAa"/>
                                     <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="6S0-TO-JiA"/>
                                 </connections>
