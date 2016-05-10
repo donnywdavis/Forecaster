@@ -24,29 +24,8 @@
 - (void)setDetailItem:(NSArray *)newDetailItem {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
-            
-        // Update the view.
-//        [self configureView];
     }
 }
-
-//- (void)configureView {
-//    // Update the user interface for the detail item.
-//    if (self.detailItem) {
-//        
-//        NSString *temperatureString = [NSString stringWithFormat:@"%ld℉", [self.detailItem.temperature integerValue]];
-//        NSString *feelsLikeTemp = [NSString stringWithFormat:@"Feels Like %ld℉", [self.detailItem.apparentTemperature integerValue]];
-//        
-//        self.title = self.detailItem.city;
-//        self.weatherLabel.text = self.detailItem.summary;
-//        self.temperatureLabel.text = temperatureString;
-//        self.feelsLikeTempLabel.text = feelsLikeTemp;
-//        if (![self.detailItem.image isEqualToString:@""]){
-//            self.weatherImage.image = [UIImage imageNamed:self.detailItem.image];
-//            
-//        }
-//    }
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,10 +35,11 @@
     
     UIPageControl *pageControl = [UIPageControl appearance];
     pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-    pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:(64/255.0) green:(123/255.0) blue:(152/255.0) alpha:1.0];
     pageControl.backgroundColor = [UIColor clearColor];
+    pageControl.currentPage = self.currentPageIndex + 1;
     
-    DetailContentViewController *startingViewController = [self viewControllerAtIndex:0];
+    DetailContentViewController *startingViewController = [self viewControllerAtIndex:self.currentPageIndex];
     NSArray *viewControllers = @[startingViewController];
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
     
@@ -67,11 +47,6 @@
     [self.view addSubview:self.pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
 
-
-//    self.currentLabel.text =@"CURRENTLY";
-    
-    // Do any additional setup after loading the view, typically from a nib.
-//    [self configureView];
 }
 
 - (void)didReceiveMemoryWarning {

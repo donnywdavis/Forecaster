@@ -194,9 +194,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//        Location *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:self.locationsArray];
+        [controller setDetailItem:[self.fetchedResultsController fetchedObjects]];
+        controller.currentPageIndex = indexPath.row;
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
         [sender setSelected:NO];
@@ -221,7 +221,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CityTableViewCell *cell = (CityTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
     Location *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    [self.locationsArray addObject:object];
+    
     [self configureCell:cell withObject:object];
     
     return cell;
@@ -264,7 +264,6 @@
 
 - (void)handleRefresh:(UIRefreshControl *)refreshControl {
     NSArray *locationObjects = [self.fetchedResultsController fetchedObjects];
-    self.locationsArray = nil;
     self.recievedLocationData = nil;
     for (Location *location in locationObjects) {
         [self.receivedLocationArray addObject:location];

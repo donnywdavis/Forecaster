@@ -12,6 +12,7 @@
 @interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) NSArray *detailItem;
+@property NSInteger currentPageIndex;
 //@property (strong, nonatomic) Location *detailItem;
 //@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 //@property (weak, nonatomic) IBOutlet UILabel *currentLabel;
