@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41171A7C1CE159DB005DE604 /* DetailContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41171A7B1CE159DB005DE604 /* DetailContentViewController.m */; };
 		414791701CDCD95C00F67860 /* CityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4147916F1CDCD95C00F67860 /* CityTableViewCell.m */; };
 		41A2CA841CDBB3450096D11A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A2CA831CDBB3450096D11A /* main.m */; };
 		41A2CA871CDBB3450096D11A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A2CA861CDBB3450096D11A /* AppDelegate.m */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41171A7A1CE159DB005DE604 /* DetailContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailContentViewController.h; sourceTree = "<group>"; };
+		41171A7B1CE159DB005DE604 /* DetailContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailContentViewController.m; sourceTree = "<group>"; };
 		4147916E1CDCD95C00F67860 /* CityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityTableViewCell.h; sourceTree = "<group>"; };
 		4147916F1CDCD95C00F67860 /* CityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityTableViewCell.m; sourceTree = "<group>"; };
 		41A2CA7F1CDBB3450096D11A /* Forecaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Forecaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +128,8 @@
 				4147916F1CDCD95C00F67860 /* CityTableViewCell.m */,
 				41A2CA8E1CDBB3450096D11A /* DetailViewController.h */,
 				41A2CA8F1CDBB3450096D11A /* DetailViewController.m */,
+				41171A7A1CE159DB005DE604 /* DetailContentViewController.h */,
+				41171A7B1CE159DB005DE604 /* DetailContentViewController.m */,
 				41A2CAAE1CDBCF4D0096D11A /* AddLocationViewController.h */,
 				41A2CAAF1CDBCF4D0096D11A /* AddLocationViewController.m */,
 			);
@@ -211,6 +216,7 @@
 				41A2CA871CDBB3450096D11A /* AppDelegate.m in Sources */,
 				41A2CA841CDBB3450096D11A /* main.m in Sources */,
 				41A2CA8A1CDBB3450096D11A /* Forecaster.xcdatamodeld in Sources */,
+				41171A7C1CE159DB005DE604 /* DetailContentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,6 +16,7 @@
 
 @property NSDictionary *recievedLocationData;
 @property NSMutableArray *receivedLocationArray;
+@property NSMutableArray *locationsArray;
 
 // Properties for JSON data received from Google Maps API request
 @property NSMutableData *receivedData;
@@ -34,12 +35,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Cities";
-
-    // Do any additional setup after loading the view, typically from a nib.
     
     self.coordArray = [[NSMutableArray alloc]init];
     self.recievedLocationData = [[NSDictionary alloc] init];
     self.receivedLocationArray = [[NSMutableArray alloc] init];
+    self.locationsArray = [[NSMutableArray alloc] init];
     
     // Hide the separators between cells
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -167,6 +167,9 @@
     } else if (self.receivedLocationArray) {
         locationObject = self.receivedLocationArray[0];
         [self.receivedLocationArray removeObjectAtIndex:0];
+        if (self.receivedLocationArray.count == 0) {
+            self.receivedLocationArray = nil;
+        }
     }
     
     locationObject.temperature = [NSNumber numberWithInteger:[weatherDataDictionary [@"currently"][@"temperature"] integerValue]];
@@ -191,12 +194,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        Location *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+//        Location *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:object];
+        [controller setDetailItem:self.locationsArray];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
         [sender setSelected:NO];
+        
     } else if ([segue.identifier isEqualToString:@"FindCity"]) {
         AddLocationViewController *addLocationVC = (AddLocationViewController *)[segue.destinationViewController topViewController];
         addLocationVC.delegate = self;
@@ -217,7 +221,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CityTableViewCell *cell = (CityTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
     Location *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    
+    [self.locationsArray addObject:object];
     [self configureCell:cell withObject:object];
     
     return cell;
@@ -260,7 +264,7 @@
 
 - (void)handleRefresh:(UIRefreshControl *)refreshControl {
     NSArray *locationObjects = [self.fetchedResultsController fetchedObjects];
-
+    self.locationsArray = nil;
     self.recievedLocationData = nil;
     for (Location *location in locationObjects) {
         [self.receivedLocationArray addObject:location];
