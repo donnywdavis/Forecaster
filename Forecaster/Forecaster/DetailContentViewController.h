@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Location.h"
 
 @interface DetailContentViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *summaryLabel;
-@property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
-@property (weak, nonatomic) IBOutlet UILabel *feelsLikeLabel;
+@property Location *locationObject;
 @property NSUInteger pageIndex;
 
 @end

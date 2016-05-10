@@ -83,6 +83,12 @@
                                 <color key="textColor" red="0.83137254900000002" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzV-ix-hyO">
+                                <rect key="frame" x="280" y="28" width="41" height="31"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.7803921568627451" green="0.84705882352941175" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -92,11 +98,14 @@
                             <constraint firstItem="etj-Dd-pqD" firstAttribute="top" secondItem="KuO-gz-pfh" secondAttribute="bottom" constant="8" id="K7h-LD-h0K"/>
                             <constraint firstItem="KuO-gz-pfh" firstAttribute="top" secondItem="x99-GP-sAl" secondAttribute="bottom" constant="84" id="MFd-hQ-74g"/>
                             <constraint firstItem="etj-Dd-pqD" firstAttribute="leading" secondItem="BEh-nP-4Xj" secondAttribute="leadingMargin" id="jAn-JV-xpP"/>
+                            <constraint firstItem="rzV-ix-hyO" firstAttribute="top" secondItem="x99-GP-sAl" secondAttribute="bottom" constant="8" id="mn5-al-Aqn"/>
+                            <constraint firstItem="rzV-ix-hyO" firstAttribute="centerX" secondItem="BEh-nP-4Xj" secondAttribute="centerX" id="nIx-ro-kK2"/>
                             <constraint firstItem="dI1-WS-sQZ" firstAttribute="top" secondItem="KuO-gz-pfh" secondAttribute="top" id="ohU-6E-XMC"/>
                             <constraint firstItem="sbt-OH-haz" firstAttribute="top" secondItem="dI1-WS-sQZ" secondAttribute="bottom" constant="8" id="sxP-1m-FTJ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cityLabel" destination="rzV-ix-hyO" id="vj3-Bi-rO6"/>
                         <outlet property="feelsLikeLabel" destination="sbt-OH-haz" id="qhM-gF-NwU"/>
                         <outlet property="imageView" destination="KuO-gz-pfh" id="ffc-T3-Tqg"/>
                         <outlet property="summaryLabel" destination="etj-Dd-pqD" id="Ga7-0K-HaQ"/>

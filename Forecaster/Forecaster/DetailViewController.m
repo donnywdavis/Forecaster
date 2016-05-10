@@ -116,21 +116,7 @@
 - (DetailContentViewController *)viewControllerAtIndex:(NSUInteger)index {
     DetailContentViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailContentViewController"];
     Location *locationObject = self.detailItem[index];
-    self.title = locationObject.city;
-    detailVC.imageView.layer.shadowColor = [UIColor grayColor].CGColor;
-    detailVC.imageView.layer.shadowOffset = CGSizeMake(5, 7);
-    detailVC.imageView.layer.shadowOpacity = 1;
-    detailVC.imageView.layer.shadowRadius = 1.0;
-    if (![locationObject.image isEqualToString:@""]) {
-        detailVC.imageView.image = [UIImage imageNamed:locationObject.image];
-    } else {
-        detailVC.imageView.image = nil;
-    }
-    detailVC.summaryLabel.text = locationObject.summary;
-    NSString *temperatureString = [NSString stringWithFormat:@"%ld℉", [locationObject.temperature integerValue]];
-    NSString *feelsLikeTemp = [NSString stringWithFormat:@"Feels Like %ld℉", [locationObject.apparentTemperature integerValue]];
-    detailVC.feelsLikeLabel.text = feelsLikeTemp;
-    detailVC.temperatureLabel.text = temperatureString;
+    detailVC.locationObject = locationObject;
     detailVC.pageIndex = index;
     return detailVC;
 }
