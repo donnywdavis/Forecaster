@@ -11,9 +11,10 @@
 #import "MasterViewController.h"
 #import "Location.h"
 
-@interface DetailViewController () <UIPageViewControllerDataSource>
+@interface DetailViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @end
 
@@ -32,12 +33,10 @@
     
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailPageViewController"];
     self.pageViewController.dataSource = self;
+    self.pageViewController.delegate = self;
     
-    UIPageControl *pageControl = [UIPageControl appearance];
-    pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-    pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:(64/255.0) green:(123/255.0) blue:(152/255.0) alpha:1.0];
-    pageControl.backgroundColor = [UIColor clearColor];
-    pageControl.currentPage = self.currentPageIndex + 1;
+    self.pageControl.numberOfPages = self.detailItem.count;
+    self.pageControl.currentPage = self.currentPageIndex;
     
     DetailContentViewController *startingViewController = [self viewControllerAtIndex:self.currentPageIndex];
     NSArray *viewControllers = @[startingViewController];
@@ -45,8 +44,9 @@
     
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
+    [self.view addSubview:self.pageControl];
     [self.pageViewController didMoveToParentViewController:self];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,12 +80,16 @@
     return [self viewControllerAtIndex:index];
 }
 
-- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    return self.detailItem.count;
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
+    DetailContentViewController *detailVC = (DetailContentViewController *)pendingViewControllers[0];
+    self.pageControl.currentPage = detailVC.pageIndex;
 }
 
-- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
-    return 0;
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
+    if (!completed) {
+        DetailContentViewController *detailVC = (DetailContentViewController *)previousViewControllers[0];
+        self.pageControl.currentPage = detailVC.pageIndex;
+    }
 }
 
 - (DetailContentViewController *)viewControllerAtIndex:(NSUInteger)index {

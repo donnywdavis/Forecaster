@@ -13,13 +13,6 @@
 
 @property (strong, nonatomic) NSArray *detailItem;
 @property NSInteger currentPageIndex;
-//@property (strong, nonatomic) Location *detailItem;
-//@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *currentLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
-//@property (weak, nonatomic) IBOutlet UIImageView *weatherImage;
-//@property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *feelsLikeTempLabel;
 
 @end
 
